@@ -1,17 +1,17 @@
 import unittest
-from config import dbconfig
 
-from app import app, db, Movie, User, forge, initdb
-
+from watchlist import app, db
+from watchlist.models import Movie, User
+from watchlist.commands import forge, initdb
+from watchlist.config import dbconfig
 
 class WatchlistTestCase(unittest.TestCase):
 
     def setUp(self):
         # 更新配置
-        config = dbconfig()
         app.config.update(
             TESTING=True,
-            SQLALCHEMY_DATABASE_URI=config.generate_uri()
+            SQLALCHEMY_DATABASE_URI=dbconfig.generate_uri()
         )
         
         # 创建数据库和表
