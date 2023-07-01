@@ -7,10 +7,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from config import dbconfig
 import click
 config = dbconfig()
-prefix, dbuser, dbpwd, localhost, dbname=config.values()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = prefix+dbuser+':'+dbpwd+'@'+localhost+'/'+dbname+'?charset=utf8mb4'
+app.config['SQLALCHEMY_DATABASE_URI'] = config.generate_uri()
 app.config['SECRET_KEY'] = 'dev'
 db = SQLAlchemy(app)
 
